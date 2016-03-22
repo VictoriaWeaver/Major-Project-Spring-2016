@@ -27,8 +27,8 @@ use IEEE.STD_LOGIC_UNSIGNED.ALL;
 
 entity RegisterFile is
 	Generic( n: integer := 32);
-    Port (	rd1 	: in  STD_LOGIC_VECTOR(2 downto 0);
-           	rd2 	: in  STD_LOGIC_VECTOR(2 downto 0);
+    Port (	rd1 	: in  STD_LOGIC_VECTOR(4 downto 0);
+           	rd2 	: in  STD_LOGIC_VECTOR(4 downto 0);
            	rst 	: in  STD_LOGIC;
            	clk 	: in  STD_LOGIC;
            	wr 		: in  STD_LOGIC_VECTOR(4 downto 0);
@@ -155,7 +155,81 @@ begin
 	R7: RegisterModule 
 		generic map (n => n)
 		port map(input, ren7, clk, rst, rout7);
+	R8: RegisterModule 
+		generic map (n => n)
+		port map(input, ren8, clk, rst, rout8);
+	R9: RegisterModule 
+		generic map (n => n)
+		port map(input, ren9, clk, rst, rout9);
+	R10: RegisterModule 
+		generic map (n => n)
+		port map(input, ren10, clk, rst, rout10);
+	R11: RegisterModule 
+		generic map (n => n)
+		port map(input, ren11, clk, rst, rout11);
+	R12: RegisterModule 
+		generic map (n => n)
+		port map(input, ren12, clk, rst, rout12);
+	R13: RegisterModule 
+		generic map (n => n)
+		port map(input, ren13, clk, rst, rout13);
+	R14: RegisterModule 
+		generic map (n => n)
+		port map(input, ren14, clk, rst, rout14);
+	R15: RegisterModule 
+		generic map (n => n)
+		port map(input, ren15, clk, rst, rout15);
+	R16: RegisterModule 
+		generic map (n => n)
+		port map(input, ren16, clk, rst, rout16);
+	R17: RegisterModule 
+		generic map (n => n)
+		port map(input, ren17, clk, rst, rout17);
+	R18: RegisterModule 
+		generic map (n => n)
+		port map(input, ren18, clk, rst, rout18);
+	R19: RegisterModule 
+		generic map (n => n)
+		port map(input, ren19, clk, rst, rout19);
+	R20: RegisterModule 
+		generic map (n => n)
+		port map(input, ren20, clk, rst, rout20);
+	R21: RegisterModule 
+		generic map (n => n)
+		port map(input, ren21, clk, rst, rout21);
+	R22: RegisterModule 
+		generic map (n => n)
+		port map(input, ren22, clk, rst, rout22);
+	R23: RegisterModule 
+		generic map (n => n)
+		port map(input, ren23, clk, rst, rout23);
+	R24: RegisterModule 
+		generic map (n => n)
+		port map(input, ren24, clk, rst, rout24);
+	R25: RegisterModule 
+		generic map (n => n)
+		port map(input, ren25, clk, rst, rout25);
+	R26: RegisterModule 
+		generic map (n => n)
+		port map(input, ren26, clk, rst, rout26);
+	R27: RegisterModule 
+		generic map (n => n)
+		port map(input, ren27, clk, rst, rout27);
+	R28: RegisterModule 
+		generic map (n => n)
+		port map(input, ren28, clk, rst, rout28);
+	R29: RegisterModule 
+		generic map (n => n)
+		port map(input, ren29, clk, rst, rout29);
+	R30: RegisterModule 
+		generic map (n => n)
+		port map(input, ren30, clk, rst, rout30);
+	R31: RegisterModule 
+		generic map (n => n)
+		port map(input, ren31, clk, rst, rout31);
 	
+
+
 	
 	-- Two multiplexers
 	mux1: Multiplexer 
