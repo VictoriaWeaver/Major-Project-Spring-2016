@@ -2,7 +2,7 @@
 -- File:			RegisterFile.vhd
 -- 
 -- Entity:			RegisterFile
--- Architecture:			Structural
+-- Architecture:	Structural
 -- Author:			Victoria Weaver
 -- Created:			3/20/16
 -- Modified:		
