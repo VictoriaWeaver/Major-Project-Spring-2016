@@ -2,14 +2,14 @@
 -- File:			RegisterFile.vhd
 -- 
 -- Entity:			RegisterFile
--- Architecture:	Structural
+-- Architecture:			Structural
 -- Author:			Victoria Weaver
 -- Created:			3/20/16
 -- Modified:		
 -- 
 -- VHDL '93
 -- Descritption:	The following is the entity and architectural description of 
--- 					an	n-bit register file of size 32 (32 registers).
+--					an n-bit register file of size 32 (32 registers).
 ----------------------------------------------------------------------------------
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
