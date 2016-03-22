@@ -17,8 +17,7 @@ entity ISA is
 	Port(
 		RST 	: in STD_LOGIC;
 		CLK 	: in STD_LOGIC;
-		Zero 	: out STD_LOGIC;
-	);
+		Zero 	: out STD_LOGIC);
 end ISA;
 
 architecture Structural of ISA is
