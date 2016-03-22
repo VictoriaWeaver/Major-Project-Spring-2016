@@ -31,6 +31,10 @@ signal MemWrite : STD_LOGIC;
 signal ALUSrc: STD_LOGIC;
 signal RegWrite : STD_LOGIC;
 
+--Fetch Signals
+signal PCinst : STD_LOGIC_VECTOR(31 downto 0);
+
+
 -- Register Signals
 signal ReadData1	: STD_LOGIC_VECTOR(31 downto 0);
 signal ReadData2 	: STD_LOGIC_VECTOR(31 downto 0);
@@ -52,6 +56,8 @@ signal rd 	: STD_LOGIC_VECTOR(4 downto 0);
 -- Sign extend
 signal ExtInst	: STD_LOGIC_VECTOR(31 downto 0);
 
+
+signal ground : STD_LOGIC_VECTOR(31 downto 0);
 
 -- Components
 
@@ -97,7 +103,7 @@ end component;
 
 begin
 
--- fetchInstruction : Fetch port map (WE, CLK, RST, ADDR);
+-- fetchInstruction : Fetch port map (WE, CLK, RST, PCinst);
 
 
 rs <= Inst(25 downto 21);
@@ -108,6 +114,10 @@ rd <= Inst(15 downto 11);
 
 -- Register File
 RegFile: RegisterFile port map(rs, rt, RST, CLK, WriteReg, we, input, ReadData1, ReadData2);
+
+--InstMem: RegisterFile port map(PCinst, ground, '0', CLK, "00000", '0', input, ReadData1, ground);
+
+--DataMem: RegisterFile port map(rs, rt, RST, CLK, WriteReg, we, input, ReadData1, ReadData2);
 
 
 --MUX

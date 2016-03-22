@@ -10,15 +10,15 @@
 -- VHDL '93
 -- Description:		The following is the entity and architectural 
 --					description of a 32-bit ALU.
--- Control Logic:	Addition		0000
---					Subtraction		0001
---					SLL				0100
---					SRL 			0101
---					SRA 			0110
---					Logical OR 		1100
---					Logical NOT 	1101
---					Logical AND 	1110
---					Logical XOR 	1111
+-- Control Logic:	Addition		0010
+--					Subtraction		0110
+--					SLL				
+--					SRL 			
+--					SRA 			
+--					Logical OR 		
+--					Logical NOT 	
+--					Logical AND 	0000
+--					Logical XOR 	0111
 -----------------------------------------------------------------
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
