@@ -1,5 +1,5 @@
 ----------------------------------------------------------------------------------
--- File:				RegisterFile.vhd
+-- File:			RegisterFile.vhd
 -- 
 -- Entity:			RegisterFile
 -- Architecture:	Structural
