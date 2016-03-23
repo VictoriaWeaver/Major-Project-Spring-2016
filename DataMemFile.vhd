@@ -29,12 +29,15 @@ entity DataMemFile is
 	Port ( 	DataIn 	: in STD_LOGIC_VECTOR(31 downto 0); 
 			RST 	: in STD_LOGIC;
            	CLK 	: in STD_LOGIC;
+           	RE 		: in STD_LOGIC;
            	WE 		: in STD_LOGIC;
            	address	: in STD_LOGIC_VECTOR(31 downto 0);
            	output 	: out STD_LOGIC_VECTOR(31 downto 0));
 end DataMemFile;
 
 architecture Behavioral of DataMemFile is
+
+signal op: STD_LOGIC_VECTOR(31 downto 0) := "00000000000000000000000000000000";
 
 type memory is array (0 to 9) of bit_vector(31 downto 0);
 variable MEM : memory :=
@@ -50,18 +53,20 @@ variable MEM : memory :=
             	"00000000000000000000000000000000");		-- initialized with No-op instructions
 begin
 
+
 P1: process(RST,CLK)
 begin
+	output <= op;
 	-- Reset to zero
 	if (RST = '1') then
-		output <= (others => '0');
+		op <= (others => '0');
 	-- Module must be enabled to change
-	elsif (CLK='1' and CLK'EVENT) then
+	elsif (CLK='1' and CLK'EVENT and RE='1') then
 		if (WE = '1') then
-			output <= DataIn;
+			op <= DataIn;
 			memory(address(3 downto 0)) <= DataIn;
 		else
-			with address(3 downto 0) select output <=
+			with address(3 downto 0) select op <=
 				memory(0) when "0000",
 				memory(1) when "0001",
 				memory(2) when "0010",
@@ -75,7 +80,7 @@ begin
 				"00000000000000000000000000000000" when others; 	-- No-op
 		end if;
 	else
-		-- Do nothing
+		op <= op;	-- No change in output
 	end if;
 end process;
 

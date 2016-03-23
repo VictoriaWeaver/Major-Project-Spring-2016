@@ -110,6 +110,7 @@ component DataMemFile
 	Port ( 	DataIn 	: in STD_LOGIC_VECTOR(31 downto 0); 
 			RST 	: in STD_LOGIC;
            	CLK 	: in STD_LOGIC;
+           	RE 		: in STD_LOGIC;
            	WE 		: in STD_LOGIC;
            	address	: in STD_LOGIC_VECTOR(31 downto 0);
            	output 	: out STD_LOGIC_VECTOR(31 downto 0);
@@ -153,7 +154,7 @@ RegFile: RegisterFile port map(rs, rt, RST, CLK, WriteReg, we, input, ReadData1,
 InstrMemFile: MemoryFile port map(RST, CLK, PCinst, Inst);
 
 -- Data Memory File
-DataMemFile: DataMemFile port map();
+DataMemFile: DataMemFile port map(ReadData2, RST, CLK, MemRead, MemWrite, ALUResult, ReadDataMem);
 
 
 -- MUX
