@@ -175,9 +175,6 @@ ALUnit: ALU port map(ReadData1, ALUIn2, ALUControl, ALUResult, Zero);
 -- MUX
 mux3 : MUX port map(MemtoReg, ALUResult, ReadDataMem, WriteData);
 
-
-
-
 end Structural;
 
 
