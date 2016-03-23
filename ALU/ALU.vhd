@@ -34,7 +34,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 entity ALU is
     Port ( In1 		: in  STD_LOGIC_VECTOR(31 downto 0);
            In2 		: in  STD_LOGIC_VECTOR(31 downto 0);
-           Control 	: in  STD_LOGIC_VECTOR(3 downto 0); 	-- 9 possible operations
+           Control 	: in  STD_LOGIC_VECTOR(3 downto 0);
            Output 	: out STD_LOGIC_VECTOR(31 downto 0);
            Zero 	: out STD_LOGIC);
 end ALU;
@@ -69,7 +69,7 @@ architecture Structural of ALU is
 	component LogicalUnit is
 		Port ( 	In1 	: in  STD_LOGIC_VECTOR(31 downto 0);
            		In2 	: in  STD_LOGIC_VECTOR(31 downto 0);
-           		Control : in  STD_LOGIC_VECTOR(1 downto 0);
+           		Control : in  STD_LOGIC_VECTOR(3 downto 0);
 			  	Output 	: out STD_LOGIC_VECTOR(31 downto 0));
 	end component;
 
@@ -104,7 +104,7 @@ begin
 	subCarry <= (not Control(3)) AND Control(2) AND Control(1) AND (not Control(0));
 	
 	LUMux: Mux2_1 port map(subCarry, In1, In2, LUin1);
-	LU: LogicalUnit port map(LUin1, In2, Control(1 downto 0), LUOut);
+	LU: LogicalUnit port map(LUin1, In2, Control, LUOut);
 	
 	
 	--Adder Unit

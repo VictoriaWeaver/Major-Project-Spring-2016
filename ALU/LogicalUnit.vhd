@@ -26,7 +26,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 entity LogicalUnit is
     Port ( 	In1 	: in  STD_LOGIC_VECTOR(31 downto 0);
            	In2 	: in  STD_LOGIC_VECTOR(31 downto 0);
-           	Control : in  STD_LOGIC_VECTOR(1 downto 0);
+           	Control : in  STD_LOGIC_VECTOR(3 downto 0);
 			Output 	: out STD_LOGIC_VECTOR(31 downto 0));
 end LogicalUnit;
 
@@ -34,10 +34,10 @@ architecture Dataflow of LogicalUnit is
 
 begin
 			with Control select
-			Output <= (In1 OR In2) when "00",
-							(NOT In1) when "01",
-							(In1 AND In2) when "10",
-							(In1 XOR In2) when others;
+			Output <= (In1 AND In2) when "0000",
+						(NOT In1) when "0111",
+						(In1 OR In2) when "0001",
+						"00000000000000000000000000000000" when others;
 		
 end Dataflow;
 
