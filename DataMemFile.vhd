@@ -31,7 +31,7 @@ entity DataMemFile is
            	CLK 	: in STD_LOGIC;
            	WE 		: in STD_LOGIC;
            	address	: in STD_LOGIC_VECTOR(31 downto 0);
-           	output 	: out STD_LOGIC_VECTOR(31 downto 0);
+           	output 	: out STD_LOGIC_VECTOR(31 downto 0));
 end DataMemFile;
 
 architecture Behavioral of DataMemFile is

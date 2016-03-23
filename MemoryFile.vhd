@@ -29,7 +29,7 @@ entity MemoryFile is
 	Port ( 	RST 	: in  STD_LOGIC;
            	CLK 	: in  STD_LOGIC;
            	address	: in  STD_LOGIC_VECTOR(31 downto 0);
-           	output 	: out  STD_LOGIC_VECTOR(31 downto 0);
+           	output 	: out  STD_LOGIC_VECTOR(31 downto 0));
 end MemoryFile;
 
 architecture Behavioral of MemoryFile is
