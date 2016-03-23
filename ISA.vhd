@@ -1,18 +1,31 @@
-Fetch Logic (Fetch.vhd)
+----------------------------------------------------------------------------------
+-- File:			ISA.vhd
+-- 
+-- Entity:			ISA
+-- Architecture:	Structural
+-- Author:			Victoria Weaver
+-- Created:			3/22/16
+-- Modified:		
+-- 
+-- VHDL '93
+-- Descritption:	The following is the entity and architectural description of 
+--					some of the isntructions of the MIPS Instruction Set 
+--					Architecture
+----------------------------------------------------------------------------------
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.STD_LOGIC_ARITH.ALL;
+use IEEE.STD_LOGIC_UNSIGNED.ALL;
 
-Register Files: (RegisterFile.vhd)
-	instruction mem
-	registers
-	data mem
+-- Uncomment the following library declaration if using
+-- arithmetic functions with Signed or Unsigned values
+--use IEEE.NUMERIC_STD.ALL;
 
-ALU-
+-- Uncomment the following library declaration if instantiating
+-- any Xilinx primitives in this code.
+--library UNISIM;
+--use UNISIM.VComponents.all;
 
-OpCode Logic
-
-Multiplexers (32-bit, 2:1) (MUX.vhd)
-
-
------------------------------------------
 entity ISA is
 	Port(
 		RST 	: in STD_LOGIC;
@@ -92,6 +105,17 @@ component MemoryFile
 end component;
 
 
+-- Data Memory
+component DataMemFile
+	Port ( 	DataIn 	: in STD_LOGIC_VECTOR(31 downto 0); 
+			RST 	: in STD_LOGIC;
+           	CLK 	: in STD_LOGIC;
+           	WE 		: in STD_LOGIC;
+           	address	: in STD_LOGIC_VECTOR(31 downto 0);
+           	output 	: out STD_LOGIC_VECTOR(31 downto 0);
+end component;
+
+
 -- MUX (2:1 multiplexer)
 component MUX
 	Generic( n : integer );
@@ -129,7 +153,7 @@ RegFile: RegisterFile port map(rs, rt, RST, CLK, WriteReg, we, input, ReadData1,
 InstrMemFile: MemoryFile port map(RST, CLK, PCinst, Inst);
 
 -- Data Memory File
-DataMemFile: MemoryFile port map(RST, CLK, PCinst, Inst);
+DataMemFile: DataMemFile port map();
 
 
 -- MUX
