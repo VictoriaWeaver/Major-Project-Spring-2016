@@ -125,12 +125,14 @@ rd <= Inst(15 downto 11);
 RegFile: RegisterFile port map(rs, rt, RST, CLK, WriteReg, we, input, ReadData1, ReadData2);
 
 
--- Memory File
-MemFile: MemoryFile port map(RST, CLK, PCinst, Inst);
+-- Instruction Memory File
+InstrMemFile: MemoryFile port map(RST, CLK, PCinst, Inst);
+
+-- Data Memory File
 DataMemFile: MemoryFile port map(RST, CLK, PCinst, Inst);
 
 
---MUX
+-- MUX
 mux1 : MUX port map(RegDst, rt, rd, WriteReg);
 
 

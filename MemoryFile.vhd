@@ -9,7 +9,7 @@
 -- 
 -- VHDL '93
 -- Descritption:	The following is the entity and architectural description of 
---					a word-addressable memory file.
+--					a 32-bit address memory file.
 ----------------------------------------------------------------------------------
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
