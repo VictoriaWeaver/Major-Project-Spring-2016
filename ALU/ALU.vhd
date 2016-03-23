@@ -10,15 +10,14 @@
 -- VHDL '93
 -- Description:		The following is the entity and architectural 
 --					description of a 32-bit ALU.
--- Control Logic:	Addition		0010
+-- Control Logic:	Logical AND 	0000
+--					Logical OR 		0001
+--					Addition		0010
+--					Logical NOT 	0111
 --					Subtraction		0110
 --					SLL				
---					SRL 			
---					SRA 			
---					Logical OR 		
---					Logical NOT 	
---					Logical AND 	0000
---					Logical XOR 	0111
+--					SRL				
+--					SRA				
 -----------------------------------------------------------------
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
@@ -102,7 +101,7 @@ signal ground: STD_LOGIC_VECTOR(31 downto 0) <= "0000000000000000000000000000000
 begin
 	
 	--Logical Unit
-	subCarry <= (not Control(3)) AND (not Control(2)) AND (not Control(1)) AND Control(0);
+	subCarry <= (not Control(3)) AND Control(2) AND Control(1) AND (not Control(0));
 	
 	LUMux: Mux2_1 port map(subCarry, In1, In2, LUin1);
 	LU: LogicalUnit port map(LUin1, In2, Control(1 downto 0), LUOut);
@@ -112,16 +111,17 @@ begin
 	AdderMux: Mux2_1 port map(subCarry, In2, LUOut, AdderIn2);
 	AdderUnit: Adder32 port map(In1, AdderIn2, subCarry, AdderOut);
 
+
+	--Do NOT implement yet
 	--Shifter Unit
-	ShiftUnit: Shifter port map(In1, Control(1 downto 0), In2(4 downto 0), ShiftOut);
+	--ShiftUnit: Shifter port map(In1, Control(1 downto 0), In2(4 downto 0), ShiftOut);
 
 	--Output MUX
 	OutputMUX: Mux16_1 port map(Control, 
-								AdderOut, AdderOut, 					-- Addition Operation
-								ground, ground, 						-- NULL Operation
-								ShiftOut, ShiftOut, ShiftOut,			-- Shift Operation
-								ground, ground, ground, ground, ground, -- NULL Operation
-								LUOut, LUOut, LUOut, LUOut, 			-- Logical Operation
+								LUOut, LUOut, AdderOut, ground,		
+								ground, ground, AdderOut, LUOut,
+								ground, ground, ground, ground,
+								ground, ground, ground, ground,
 								Output);
 	
 	-- Set the Zero Flag
