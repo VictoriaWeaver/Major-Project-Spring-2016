@@ -34,8 +34,8 @@ end MemoryFile;
 
 architecture Behavioral of MemoryFile is
 
-type memory is array (0 to 9) of bit_vector(31 downto 0);
-constant MEM : memory :=
+type memory is array (0 to 9) of std_logic_vector(31 downto 0);
+shared variable MEM : memory :=
             	("00000000000000000000000000000000",
             	"00000000000000000000000000000000",
             	"00000000000000000000000000000000",
@@ -55,18 +55,19 @@ begin
 		output <= (others => '0');
 	-- Module must be enabled to change
 	elsif (CLK='1' and CLK'EVENT) then
-		with address(3 downto 0) select output <=
-			memory(0) when "0000",
-			memory(1) when "0001",
-			memory(2) when "0010",
-			memory(3) when "0011",
-			memory(4) when "0100",
-			memory(5) when "0101",
-			memory(6) when "0110",
-			memory(7) when "0111",
-			memory(8) when "1000",
-			memory(9) when "1001",
-			"00000000000000000000000000000000" when others; 	-- No-op
+		case address(3 downto 0) is
+				when "0000" => output <= MEM(0);
+				when "0001" => output <= MEM(1);
+				when "0010" => output <= MEM(2);
+				when "0011" => output <= MEM(3);
+				when "0100" => output <= MEM(4);
+				when "0101" => output <= MEM(5);
+				when "0110" => output <= MEM(6);
+				when "0111" => output <= MEM(7);
+				when "1000" => output <= MEM(8);
+				when "1001" => output <= MEM(9);				
+				when others => output <= "00000000000000000000000000000000";		
+			end case;
 	else
 		-- Do nothing
 	end if;

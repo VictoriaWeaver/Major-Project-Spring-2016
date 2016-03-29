@@ -31,9 +31,9 @@ entity RegisterFile is
            	rd2 	: in  STD_LOGIC_VECTOR(4 downto 0);
            	rst 	: in  STD_LOGIC;
            	clk 	: in  STD_LOGIC;
-           	wr 		: in  STD_LOGIC_VECTOR(4 downto 0);
-           	we 		: in  STD_LOGIC;
-			input 	: in  STD_LOGIC_VECTOR(n-1 downto 0);
+           	wr 	: in  STD_LOGIC_VECTOR(4 downto 0);
+           	we 	: in  STD_LOGIC;
+				input	: in  STD_LOGIC_VECTOR(n-1 downto 0);
            	out1 	: out  STD_LOGIC_VECTOR(n-1 downto 0);
            	out2 	: out  STD_LOGIC_VECTOR(n-1 downto 0));
 end RegisterFile;
@@ -51,7 +51,7 @@ end component;
 
 -- Multiplexer:	The register file contains two n-bit 32:1 multiplexers.
 component Multiplexer
-	Generic ( n: integer );
+	Generic ( n: integer :=32);
     Port ( S : in  STD_LOGIC_VECTOR(4 downto 0);
            W0,W1,W2,W3,
            W4,W5,W6,W7,

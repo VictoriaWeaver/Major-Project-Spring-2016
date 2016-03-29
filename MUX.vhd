@@ -26,9 +26,9 @@ use IEEE.STD_LOGIC_UNSIGNED.ALL;
 --use UNISIM.VComponents.all;
 
 entity MUX is
-	Generic( n : integer );
+	Generic( n : integer:=5);
     Port (	S 		: in  STD_LOGIC;
-           	W0,W1 	: in  STD_LOGIC_VECTOR(n-1 downto 0);
+           	W0,W1 : in  STD_LOGIC_VECTOR(n-1 downto 0);
            	Z 		: out  STD_LOGIC_VECTOR(n-1 downto 0));
 end MUX;
 
@@ -38,7 +38,7 @@ end MUX;
 architecture Dataflow of MUX is
 
 begin
-	Z <= 	W0 when (S = 0) else
+	Z <= 	W0 when (S = '0') else
 			W1;
 			
 

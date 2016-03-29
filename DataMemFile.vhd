@@ -13,8 +13,9 @@
 ----------------------------------------------------------------------------------
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
-use IEEE.STD_LOGIC_ARITH.ALL;
+--use IEEE.STD_LOGIC_ARITH.ALL;
 use IEEE.STD_LOGIC_UNSIGNED.ALL;
+use IEEE.NUMERIC_STD.ALL;
 
 -- Uncomment the following library declaration if using
 -- arithmetic functions with Signed or Unsigned values
@@ -39,8 +40,8 @@ architecture Behavioral of DataMemFile is
 
 signal op: STD_LOGIC_VECTOR(31 downto 0) := "00000000000000000000000000000000";
 
-type memory is array (0 to 9) of bit_vector(31 downto 0);
-variable MEM : memory :=
+type memory is array (0 to 9) of std_logic_vector(31 downto 0);
+shared variable MEM : memory :=
             	("00000000000000000000000000000000",
             	"00000000000000000000000000000000",
             	"00000000000000000000000000000000",
@@ -64,20 +65,21 @@ begin
 	elsif (CLK='1' and CLK'EVENT and RE='1') then
 		if (WE = '1') then
 			op <= DataIn;
-			memory(address(3 downto 0)) <= DataIn;
+			MEM(to_integer(unsigned(address(3 downto 0)))) := DataIn;
 		else
-			with address(3 downto 0) select op <=
-				memory(0) when "0000",
-				memory(1) when "0001",
-				memory(2) when "0010",
-				memory(3) when "0011",
-				memory(4) when "0100",
-				memory(5) when "0101",
-				memory(6) when "0110",
-				memory(7) when "0111",
-				memory(8) when "1000",
-				memory(9) when "1001",
-				"00000000000000000000000000000000" when others; 	-- No-op
+			case address(3 downto 0) is
+				when "0000" => op <= MEM(0);
+				when "0001" => op <= MEM(1);
+				when "0010" => op <= MEM(2);
+				when "0011" => op <= MEM(3);
+				when "0100" => op <= MEM(4);
+				when "0101" => op <= MEM(5);
+				when "0110" => op <= MEM(6);
+				when "0111" => op <= MEM(7);
+				when "1000" => op <= MEM(8);
+				when "1001" => op <= MEM(9);				
+				when others => op <= "00000000000000000000000000000000";		
+			end case;
 		end if;
 	else
 		op <= op;	-- No change in output

@@ -37,12 +37,12 @@ entity Multiplexer is
            W24,W25,W26,W27,
            W28,W29,W30,W31 	: in  STD_LOGIC_VECTOR(n-1 downto 0);
            Z : out  STD_LOGIC_VECTOR(n-1 downto 0));
-end Multiplier;
+end Multiplexer;
 
 
 -- The multiplexer takes 32 n-bit inputs and uses a 3-bit select signal to select 
 -- which input goes to the output. 
-architecture Dataflow of MUX is
+architecture Dataflow of Multiplexer is
 
 begin
 	Z <= 	W0 when (S = "00000") else

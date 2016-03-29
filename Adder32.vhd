@@ -25,10 +25,10 @@ use IEEE.STD_LOGIC_1164.ALL;
 --use UNISIM.VComponents.all;
 
 entity Adder32 is
-    Port ( In1 : in  STD_LOGIC_VECTOR(32 downto 0);
-           In2 : in  STD_LOGIC_VECTOR(32 downto 0);
+    Port ( In1 : in  STD_LOGIC_VECTOR(31 downto 0);
+           In2 : in  STD_LOGIC_VECTOR(31 downto 0);
            Cin : in  STD_LOGIC;
-           Sum : out  STD_LOGIC_VECTOR(32 downto 0));
+           Sum : out  STD_LOGIC_VECTOR(31 downto 0));
 end Adder32;
 
 architecture Structural of Adder32 is
@@ -43,7 +43,7 @@ architecture Structural of Adder32 is
 
 -- Signals
 -- Internal carry bit
-signal Int_Carry : STD_LOGIC_VECTOR(16 downto 0);
+signal Int_Carry : STD_LOGIC_VECTOR(33 downto 0);
 
 begin
 	-- Carry on the first adder is not internal

@@ -10,14 +10,14 @@
 -- VHDL '93
 -- Description:		The following is the entity and architectural 
 --					description of a 32-bit ALU.
--- Control Logic:	Logical AND 	0000
---					Logical OR 		0001
---					Addition		0010
---					Logical NOT 	0111
---					Subtraction		0110
---					SLL				
---					SRL				
---					SRA				
+-- Control Logic:		Logical AND 	0000
+--							Logical OR 		0001
+--							Addition			0010
+--							Logical NOT 	0111
+--							Subtraction		0110
+--							SLL				
+--							SRL				
+--							SRA				
 -----------------------------------------------------------------
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
@@ -36,7 +36,7 @@ entity ALU is
            In2 		: in  STD_LOGIC_VECTOR(31 downto 0);
            Control 	: in  STD_LOGIC_VECTOR(3 downto 0);
            Output 	: out STD_LOGIC_VECTOR(31 downto 0);
-           Zero 	: out STD_LOGIC);
+           Zero 		: out STD_LOGIC);
 end ALU;
 
 architecture Structural of ALU is
@@ -44,24 +44,24 @@ architecture Structural of ALU is
 --Components
 
 --2X 32-bit 2:1 MUX
-	component MUX is
+	component Mux32bit2_1 is
 		Port ( 	Sel 	: in  STD_LOGIC;
            		In1 	: in  STD_LOGIC_VECTOR(31 downto 0);
-				In2 	: in  STD_LOGIC_VECTOR(31 downto 0);
+					In2 	: in  STD_LOGIC_VECTOR(31 downto 0);
            		Output 	: out STD_LOGIC_VECTOR(31 downto 0));
 	end component;
 	
---32-bit 16:1 MUX
-	component Mux16_1 is
-    Port ( 	Sel : in  STD_LOGIC_VECTOR(3 downto 0);
+--32-bit 32:1 MUX
+	component Mux32s_1 is
+    Port ( 	Sel : in  STD_LOGIC_VECTOR(4 downto 0);
 			In0,In1,In2,In3,
 			In4,In5,In6,In7,
 			In8,In9,In10,In11,
 			In12,In13,In14,In15,
-			In16,In16,In18,In19,
+			In16,In17,In18,In19,
 			In20,In21,In22,In23,
 			In24,In25,In26,In27,
-			In28,In29,In30,In31 : in  STD_LOGIC_VECTOR(32 downto 0);
+			In28,In29,In30,In31 : in  STD_LOGIC_VECTOR(31 downto 0);
            	Output : out	STD_LOGIC_VECTOR(15 downto 0));
 	end component;
 
@@ -75,7 +75,7 @@ architecture Structural of ALU is
 
 --ADDER 
 	component Adder32 is
-		Port ( 	In1 : in  STD_LOGIC_VECTOR(31 downto 0);
+		Port (In1 : in  STD_LOGIC_VECTOR(31 downto 0);
 				In2 : in  STD_LOGIC_VECTOR(31 downto 0);
 				Cin : in  STD_LOGIC;
 				Sum : out STD_LOGIC_VECTOR(31 downto 0));
@@ -89,6 +89,22 @@ architecture Structural of ALU is
     	       Output 	: out STD_LOGIC_VECTOR(31 downto 0));
 	end component;
 
+--Muxes
+	component Mux2_1 is
+		Port ( Sel : in  STD_LOGIC;
+				In1 : in  STD_LOGIC_VECTOR(31 downto 0);
+				In2 : in  STD_LOGIC_VECTOR(31 downto 0);
+				Output : out	STD_LOGIC_VECTOR(31 downto 0));
+	end component;
+	
+	component Mux16_1 is
+		Port ( Sel : in  STD_LOGIC_VECTOR(3 downto 0);
+				In0,In1,In2,In3,In4,In5,In6,In7,In8,
+				In9,In10,In11,In12,In13,In14,In15 : in  STD_LOGIC_VECTOR(31 downto 0);
+				Output : out	STD_LOGIC_VECTOR(31 downto 0));
+	end component;
+
+
 --Signals
 signal controlOutput: STD_LOGIC_VECTOR(31 downto 0);
 signal AdderOut, ShiftOut, LUOut : STD_LOGIC_VECTOR(31 downto 0); 
@@ -96,7 +112,9 @@ signal subCarry: STD_LOGIC;
 
 signal LUin1: STD_LOGIC_VECTOR(31 downto 0);
 signal AdderIn2: STD_LOGIC_VECTOR(31 downto 0);
-signal ground: STD_LOGIC_VECTOR(31 downto 0) <= "00000000000000000000000000000000";
+signal ground: STD_LOGIC_VECTOR(31 downto 0) := "00000000000000000000000000000000";
+
+signal buff: STD_LOGIC_VECTOR(31 downto 0);
 
 begin
 	
@@ -105,7 +123,7 @@ begin
 	
 	LUMux: Mux2_1 port map(subCarry, In1, In2, LUin1);
 	LU: LogicalUnit port map(LUin1, In2, Control, LUOut);
-	
+
 	
 	--Adder Unit
 	AdderMux: Mux2_1 port map(subCarry, In2, LUOut, AdderIn2);
@@ -122,10 +140,11 @@ begin
 								ground, ground, AdderOut, LUOut,
 								ground, ground, ground, ground,
 								ground, ground, ground, ground,
-								Output);
-	
-	-- Set the Zero Flag
-	with Output select
+								buff);
+
+	-- Set the Zero Flag							
+	Output <= buff;
+	with buff select
 		Zero <= '1' when "00000000000000000000000000000000",
 				'0' when others;
 

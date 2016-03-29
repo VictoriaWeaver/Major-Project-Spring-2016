@@ -26,7 +26,7 @@ use IEEE.STD_LOGIC_UNSIGNED.ALL;
 --use UNISIM.VComponents.all;
 
 entity RegisterModule is
-	Generic ( n : integer );
+	Generic ( n : integer:= 32 );
     Port ( X 	: in  STD_LOGIC_VECTOR(n-1 downto 0);
            WE 	: in  STD_LOGIC;
            CLK 	: in  STD_LOGIC;
@@ -40,7 +40,7 @@ end RegisterModule;
 -- If the reset signal is high, the output of the is set to all zeros
 architecture Behavioral of RegisterModule is
 begin
-P1: process(RST,CLK)
+P1: process(RST,CLK,WE)
 begin
 	-- Reset to zero
 	if (RST = '1') then

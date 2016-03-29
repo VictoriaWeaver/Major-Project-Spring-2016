@@ -87,7 +87,7 @@ begin
 		Stage2SLL: Mux2_1 port map(Shift(3), sllo1(31 downto 0), sll2, sllo2);
 		Stage3SLL: Mux2_1 port map(Shift(2), sllo2(31 downto 0), sll3, sllo3);
 		Stage4SLL: Mux2_1 port map(Shift(1), sllo3(31 downto 0), sll4, sllo4);
-		Stage4SLL: Mux2_1 port map(Shift(0), sllo4(31 downto 0), sll5, Output1);
+		Stage5SLL: Mux2_1 port map(Shift(0), sllo4(31 downto 0), sll5, Output1);
 		
 	-- SRL
 	
@@ -115,7 +115,7 @@ begin
 		Stage2SRA: Mux2_1 port map(Shift(3), srao1(31 downto 0), sra2, srao2);
 		Stage3SRA: Mux2_1 port map(Shift(2), srao2(31 downto 0), sra3, srao3);
 		Stage4SRA: Mux2_1 port map(Shift(1), srao3(31 downto 0), sra4, srao4);
-		Stage4SRA: Mux2_1 port map(Shift(0), srao4(31 downto 0), sra5, Output3);
+		Stage5SRA: Mux2_1 port map(Shift(0), srao4(31 downto 0), sra5, Output3);
 		
 	
 		Output <= 	Output1 when Control = "00" else
